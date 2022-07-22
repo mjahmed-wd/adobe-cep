@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionList>
+    <Extension Id="com.jubair.cep.panel">
+        <Host Name="PHSP" Port="5678" />
+    </Extension>
+</ExtensionList>

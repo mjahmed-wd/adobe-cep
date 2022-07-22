@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- 1) -->
+<ExtensionManifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ExtensionBundleId="com.jubair.cep"
+                   ExtensionBundleVersion="1.0.0" Version="7.0">
+    <ExtensionList>
+        <!-- 2) -->
+        <Extension Id="com.jubair.cep.panel" Version="1.0.0"/>
+    </ExtensionList>
+    <ExecutionEnvironment>
+        <HostList>
+            <!-- 3) -->
+            <Host Name="PHSP" Version="20"/>
+            <Host Name="PHXS" Version="20"/>
+            <Host Name="PPRO" Version="14"/>
+        </HostList>
+        <LocaleList>
+            <Locale Code="All"/>
+        </LocaleList>
+        <RequiredRuntimeList>
+            <RequiredRuntime Name="CSXS" Version="11.0"/>
+        </RequiredRuntimeList>
+    </ExecutionEnvironment>
+    <DispatchInfoList>
+        <!-- 2) -->
+        <Extension Id="com.jubair.cep.panel">
+            <DispatchInfo>
+                <Resources>
+                    <!-- 4) -->
+                    <MainPath>./index.html</MainPath>
+                    <!-- 5) -->
+                    <ScriptPath>./jsx/photoshop.jsx</ScriptPath>
+                    <CEFCommandLine/>
+                </Resources>
+                <Lifecycle>
+                    <AutoVisible>true</AutoVisible>
+                </Lifecycle>
+                <UI>
+                    <Type>Panel</Type>
+                    <!-- 6) -->
+                    <Menu>Hello World!</Menu>
+                    <Geometry>
+                        <Size>
+                            <!-- 7) -->
+                            <Height>150</Height>
+                            <Width>300</Width>
+                        </Size>
+                    </Geometry>
+                    <Icons/>
+                </UI>
+            </DispatchInfo>
+        </Extension>
+    </DispatchInfoList>
+</ExtensionManifest>

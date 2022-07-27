@@ -1,41 +1,42 @@
 (function () {
-    'use strict';
-
     var csInterface = new CSInterface();
 
-    
-    var obj = {
-        str: "Snarky Puppy",
-        num: 42,
-        today: new Date(),
-        nestedObj: {
-            nestedStr: "Mehliana",
-            nestedNum: 8,
-            nestedDate: new Date()
-        }
-    };
-
-    
-    document.getElementById('btn_test').addEventListener('click', function () {
-        csInterface.evalScript('JSXParseObj(' + JSON.stringify(obj) + ')');
-    });
-
-    var extensionRoot = csInterface.getSystemPath(SystemPath.EXTENSION) + "/jsx/";
-
-    // for single file
-    csInterface.evalScript('evalFile("' + extensionRoot + 'anotherFile.jsx")',
+    //Evaluate the JSON library in the JSX context;
+    var includeFile = csInterface.getSystemPath(SystemPath.EXTENSION) +
+        "/jsx/includes/json2.jsx";
+    console.log(includeFile);
+    csInterface.evalScript('evalFile("' + includeFile + '")',
         function (res) {
-            console.log(res)
+            console.log(res);
         });
 
+    // Set the TextArea with a placeholder Object
+    var sampleObj = '{\r str: "Tom",\r num: 42,\r today: new Date(),'
+        +
+        '\r nestedObj: {\r nestedStr: "Mehliana",\r ' +
+        'nestedNum: 8,\r nestedDate: new Date()\r }\r}';
+    $("#textarea1").val(sampleObj);
 
-    // for multiple file
-    csInterface.evalScript('evalFiles("' + extensionRoot + '")', function (res) {
-        console.log(res)
+    // JS to JSX button handler
+    $("#sendButton").on('click', function () {
+        // Ugly workaround to grab the textarea code and build an Object out of it.
+        var obj = eval("(" + $("#textarea1").val() + ")");
+        // Use JSON.stringify to massage the object before sending it down to the JSX
+        csInterface.evalScript('JSXParseObj(' + JSON.stringify(obj) + ')',
+            function (res) {
+                console.log(res);
+            });
     });
 
+    // JSX to JS button handler
+    $("#getButton").on('click', function () {
 
-
-
-
+        // Tell the JSX to send up to the JS an object
+        csInterface.evalScript('sendObjectToJS()', function (res) {
+            var stringToShow = "In order to use the following object, " +
+                "you need to JSON.parse() it!\n\n" + res;
+            $("#textarea2").val(stringToShow);
+            console.log(res);
+        });
+    });
 }());
